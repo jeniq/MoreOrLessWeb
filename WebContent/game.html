@@ -5,18 +5,21 @@
 <title>More or Less game</title>
 </head>
 <body>
-<h1>Game</h1>
-<p>Try to guess the number.<p>
-<form method = "GET" action = "CheckResult">
-	<table>
-		<tr>
-			<td>Enter number:</td>
-			<td><input type = "number" name = "userNumber"></td>
-		</tr>
-		<tr>
-			<td><input type = "submit" value = "Send"></td>
-		</tr>
-	</table>
-</form>
+	<div align = "center">
+		<h1>Game</h1>
+		<p>Try to guess the number.</p>
+		<p>Range is (min;max)</p>
+		<p>Enter your variant to the field:</p>
+		<form method="GET" action="CheckResult">
+			<table>
+				<tr>
+					<td><input type="number" name="userNumber" value = "0"></td>
+				</tr>
+				<tr align="center">
+					<td><p><input type="submit" value="Check"></p></td>
+				</tr>
+			</table>
+		</form>
+	</div>
 </body>
 </html>
