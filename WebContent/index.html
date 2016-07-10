@@ -1,0 +1,37 @@
+<!-- TODO: button "New game" that set new session with new secret number --> 
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>More or Less game</title>
+</head>
+<body>
+<h2>Hi! Welcome in Java web game "More or Less"</h2>
+<h3>Your task is to guess the number. <br> You will get tips on your way. <br> Let's start the game! <b>Good luck!</b> </h3>
+<form method = "GET" action="Game">
+	<table>
+		<tr>
+			<td>Select type:</td>
+			<td> 
+				<select name = "numberSet">
+					<option selected value = "random">Random</option>
+					<option value = "custom">Custom</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Enter min value:</td>
+			<td> <input type = "text" name = "minValue"></td>
+		</tr>
+		<tr>
+			<td>Enter number:</td>
+			<td> <input type = "text" name = "number"></td>
+		</tr>
+		<tr>
+			<td><input type = "submit" value = "TRY"></td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>
