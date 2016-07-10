@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import view.View;
+
 /**
  * Servlet implementation class CheckResult
  */
@@ -22,7 +24,6 @@ public class CheckResult extends HttpServlet {
      */
     public CheckResult() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -31,28 +32,25 @@ public class CheckResult extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
-		if (session.getAttribute("secretNumber") != null){
-			System.out.println(session.getAttribute("secretNumber"));
-			Integer secretNumber = (Integer)session.getAttribute("secretNumber");
-			int userNumber = Integer.parseInt(request.getParameter("userNumber"));
-			System.out.println(userNumber);
-			PrintWriter out = response.getWriter();
+		PrintWriter out = response.getWriter();
+		
+		if (session.getAttribute(Constant.SECRET_NUMBER) != null){
+			int secretNumber = (int)session.getAttribute(Constant.SECRET_NUMBER);
+			int userNumber = new Integer(request.getParameter(Constant.USER_NUMBER));
 			if (userNumber != secretNumber){
-				out.print("Your attemp is wrong, try again\n");
+				out.print(View.WRONG_ATTEMPT);
+				if (userNumber > secretNumber){
+					out.print(View.HIGHER_NUMBER);
+				}else{
+					out.print(View.LOWER_NUMBER);
+				}
 			}else{
-				out.print("Congratulation! You win!");
+				out.print(View.CONGRATULATION);
 			}
-			out.close();
+		}else{
+			out.print(View.NULL_SECRET_NUMBER);
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		out.close();
 	}
 
 }

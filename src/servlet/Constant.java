@@ -10,4 +10,5 @@ public interface Constant {
 	String REDIRECT_LINK = "./game.html";
 	
 	// Check result servlet
+	String USER_NUMBER = "userNumber";
 }

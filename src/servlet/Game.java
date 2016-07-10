@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import model.Model;
 
 /**
- * Servlet implementation class CheckResult
+ * Servlet implementation class Game
  */
 @WebServlet("/Game")
 public class Game extends HttpServlet {
