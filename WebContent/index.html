@@ -1,4 +1,4 @@
-<!-- TODO: button "New game" that set new session with new secret number --> 
+<!-- TODO: button "New game" that set new session with new secret number -->
 
 <!DOCTYPE html>
 <html>
@@ -7,31 +7,34 @@
 <title>More or Less game</title>
 </head>
 <body>
-<h2>Hi! Welcome in Java web game "More or Less"</h2>
-<h3>Your task is to guess the number. <br> You will get tips on your way. <br> Let's start the game! <b>Good luck!</b> </h3>
-<form method = "GET" action="Game">
-	<table>
-		<tr>
-			<td>Select type:</td>
-			<td> 
-				<select name = "numberSet">
-					<option selected value = "random">Random</option>
-					<option value = "custom">Custom</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>Enter min value:</td>
-			<td> <input type = "text" name = "minValue"></td>
-		</tr>
-		<tr>
-			<td>Enter max value:</td>
-			<td> <input type = "text" name = "maxValue"></td>
-		</tr>
-		<tr>
-			<td><input type = "submit" value = "TRY"></td>
-		</tr>
-	</table>
-</form>
+	<div align="center">
+		<h2>Hi! Welcome to Java web game "More or Less"</h2>
+		<p>
+			Your task is to guess the number. You will get tips on your way. <br>
+			Let's start the game! <br> <b>Good luck!</b>
+		</p>
+		<form method="GET" action="Game">
+			<table>
+				<tr>
+					<td>Select range type:</td>
+					<td><select name="rangeType">
+							<option selected value="random">Random</option>
+							<option value="custom">Custom</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Enter min value:</td>
+					<td><input type="number" name="minValue" min="1" value="1"></td>
+				</tr>
+				<tr>
+					<td>Enter max value:</td>
+					<td><input type="number" name="maxValue" max="99" value="99"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="TRY"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
 </body>
 </html>
