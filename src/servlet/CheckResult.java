@@ -1,12 +1,14 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class CheckResult
@@ -28,7 +30,20 @@ public class CheckResult extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession(true);
+		if (session.getAttribute("secretNumber") != null){
+			System.out.println(session.getAttribute("secretNumber"));
+			Integer secretNumber = (Integer)session.getAttribute("secretNumber");
+			int userNumber = Integer.parseInt(request.getParameter("userNumber"));
+			System.out.println(userNumber);
+			PrintWriter out = response.getWriter();
+			if (userNumber != secretNumber){
+				out.print("Your attemp is wrong, try again\n");
+			}else{
+				out.print("Congratulation! You win!");
+			}
+			out.close();
+		}
 	}
 
 	/**

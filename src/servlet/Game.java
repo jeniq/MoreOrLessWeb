@@ -40,25 +40,28 @@ public class Game extends HttpServlet {
 		HttpSession gameSession = request.getSession();
 		int secretNumber;
 		
-		newSession();
-		gameSession.setMaxInactiveInterval(180); // session time is 3 minutes
-		
-		if ("random".equals(mode)){
-			model.setMinValue(0);
-			model.setMaxValue(100);
-			model.setSecretNumber(model.rand());
-			secretNumber = model.getSecretNumber();
-			System.out.println("Set random " + secretNumber);
-			gameSession.setAttribute(Integer.toString(secretNumber), secretNumber);
-		}else{
-			secretNumber = 0;
-			gameSession.setAttribute("0", secretNumber);
+		if (model == null) {
+			newSession();
+			gameSession.setMaxInactiveInterval(180); // session time is 3 minutes
+			if ("random".equals(mode)) {
+				model.setMinValue(0);
+				model.setMaxValue(100);
+				model.setSecretNumber(model.rand());
+				secretNumber = model.getSecretNumber();
+			} else {
+				model.setMinValue(Integer.parseInt((String) request.getAttribute("minValue")));
+				model.setMaxValue(Integer.parseInt((String) request.getAttribute("maxValue")));
+				model.setSecretNumber(model.rand(model.getMinValue(), model.getMaxValue()));
+				secretNumber = model.getSecretNumber();
+			}
+			gameSession.setAttribute("secretNumber", new Integer(secretNumber));
 		}
-		
 		PrintWriter out = response.getWriter();
-		response.sendRedirect("http://localhost:8080/MoreOrLessWeb/game.html");
+		System.out.println(gameSession.getAttribute("secretNumber"));
+		response.sendRedirect("./game.html");
 		out.close();
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
