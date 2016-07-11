@@ -8,6 +8,7 @@ public interface Constant {
 	String MAX_VALUE = "maxValue";
 	String SECRET_NUMBER = "secretNumber";
 	String REDIRECT_LINK = "/game.jsp";
+	String GAME = "game";
 	
 	// Check result servlet
 	String USER_NUMBER = "userNumber";

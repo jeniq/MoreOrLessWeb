@@ -31,31 +31,19 @@ public class Game extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mode = request.getParameter(Constant.RANGE_TYPE);
+		String mode = request.getParameter(Constant.RANGE_TYPE); // mode of selecting range - random or by user
 		HttpSession gameSession = request.getSession();
-		int secretNumber;
-		int minValue;
-		int maxValue;
 		model = new Model();
 		
 		gameSession.setMaxInactiveInterval(60); // session time is 1 minute
+		model.setMinValue(new Integer(request.getParameter(Constant.MIN_VALUE)));
+		model.setMaxValue(new Integer(request.getParameter(Constant.MAX_VALUE)));
 		if (Constant.RANDOM.equals(mode)) {
-			model.setMinValue(1);
-			model.setMaxValue(99);
 			model.setSecretNumber(model.rand());
-			secretNumber = model.getSecretNumber();
 		} else {
-			model.setMinValue(new Integer(request.getParameter(Constant.MIN_VALUE)));
-			model.setMaxValue(new Integer(request.getParameter(Constant.MAX_VALUE)));
 			model.setSecretNumber(model.rand(model.getMinValue(), model.getMaxValue()));
-			secretNumber = model.getSecretNumber();
 		}
-		minValue = model.getMinValue();
-		maxValue = model.getMaxValue();
-		gameSession.setAttribute(Constant.ATTEMPTS, "");
-		gameSession.setAttribute(Constant.SECRET_NUMBER, new Integer(secretNumber));
-		gameSession.setAttribute(Constant.MIN_VALUE, new Integer(minValue));
-		gameSession.setAttribute(Constant.MAX_VALUE, new Integer(maxValue));
+		gameSession.setAttribute(Constant.GAME, model);
 		getServletContext().getRequestDispatcher(Constant.REDIRECT_LINK).forward(request, response);
 	}
 }
