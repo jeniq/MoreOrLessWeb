@@ -10,10 +10,12 @@ package view;
  *
  */
 public class View {
-	public static final String WRONG_ATTEMPT = "Your attemp is wrong, try again";
-	public static final String HIGHER_NUMBER = "\nYour number is higher than secret one.";
-	public static final String LOWER_NUMBER = "\nYour number is lower than secret one.";
+	public static final String WRONG_ATTEMPT = "<div align = \"center\">Your attemp is wrong, try again";
+	public static final String HIGHER_NUMBER = "<br>Your number is higher than secret one. </div>";
+	public static final String LOWER_NUMBER = "<br>Your number is lower than secret one. </div>";
 	public static final String CONGRATULATION = "<div align = \"center\"><b>Congratulation!</b>"
 			+ "<br>You guessed the secret number!</div>";
 	public static final String NULL_SECRET_NUMBER = "Oops, something went wrong, try new game.";
+	public static final String ATTEMPS_TITLE = "<br>Attemps";
+	public static final String NEW_LINE = "<br>";
 }

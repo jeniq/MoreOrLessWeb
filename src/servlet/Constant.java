@@ -11,4 +11,5 @@ public interface Constant {
 	
 	// Check result servlet
 	String USER_NUMBER = "userNumber";
+	String ATTEMPTS = "attemps";
 }

@@ -34,9 +34,11 @@ public class Game extends HttpServlet {
 		String mode = request.getParameter(Constant.RANGE_TYPE);
 		HttpSession gameSession = request.getSession();
 		int secretNumber;
+		int minValue;
+		int maxValue;
 		model = new Model();
 		
-		gameSession.setMaxInactiveInterval(180); // session time is 3 minutes
+		gameSession.setMaxInactiveInterval(60); // session time is 1 minute
 		if (Constant.RANDOM.equals(mode)) {
 			model.setMinValue(1);
 			model.setMaxValue(99);
@@ -48,7 +50,11 @@ public class Game extends HttpServlet {
 			model.setSecretNumber(model.rand(model.getMinValue(), model.getMaxValue()));
 			secretNumber = model.getSecretNumber();
 		}
+		minValue = model.getMinValue();
+		maxValue = model.getMaxValue();
 		gameSession.setAttribute(Constant.SECRET_NUMBER, new Integer(secretNumber));
+		gameSession.setAttribute(Constant.MIN_VALUE, new Integer(minValue));
+		gameSession.setAttribute(Constant.MAX_VALUE, new Integer(maxValue));
 		
 		response.sendRedirect(Constant.REDIRECT_LINK);
 	}

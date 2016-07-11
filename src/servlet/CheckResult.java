@@ -33,20 +33,37 @@ public class CheckResult extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		PrintWriter out = response.getWriter();
+		String attemps = (String)session.getAttribute(Constant.ATTEMPTS);
+		int minValue = (int)session.getAttribute(Constant.MIN_VALUE);
+		int maxValue = (int)session.getAttribute(Constant.MAX_VALUE);
 		
 		if (session.getAttribute(Constant.SECRET_NUMBER) != null){
 			int secretNumber = (int)session.getAttribute(Constant.SECRET_NUMBER);
 			int userNumber = new Integer(request.getParameter(Constant.USER_NUMBER));
+			
+			// history
+			if (attemps == null){ 
+				attemps = View.ATTEMPS_TITLE;
+			}
+			attemps += View.NEW_LINE + userNumber + " in range (" + minValue + ";" + maxValue + ")";
+			session.setAttribute(Constant.ATTEMPTS, attemps);
+			
+			// check attemp
 			if (userNumber != secretNumber){
 				out.print(View.WRONG_ATTEMPT);
 				if (userNumber > secretNumber){
 					out.print(View.HIGHER_NUMBER);
+					maxValue = userNumber;
+					session.setAttribute(Constant.MAX_VALUE, new Integer(maxValue));
 				}else{
 					out.print(View.LOWER_NUMBER);
+					minValue = userNumber;
+					session.setAttribute(Constant.MIN_VALUE, new Integer(minValue));
 				}
 			}else{
 				out.print(View.CONGRATULATION);
 			}
+			out.print(attemps);
 		}else{
 			out.print(View.NULL_SECRET_NUMBER);
 		}
