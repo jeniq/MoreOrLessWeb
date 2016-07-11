@@ -1,10 +1,20 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import view.View;
+
 public class Model {
     private int secretNumber;
     private int minValue;
     private int maxValue;
     private int RAND_MAX;
+    private List<String> history;
+    
+    public Model(){
+    	history = new ArrayList<>();
+    }
 
     /**
      * Generate random number in the range 0 - 100
@@ -30,15 +40,15 @@ public class Model {
      * @param userNumber number entered by user
      * @return true in case numbers are equals, else return false
      */
-    public boolean isEquals(int userNumber){
+    public int isEquals(int userNumber){
         if (userNumber < secretNumber) {
             minValue = userNumber;
-            return false;
+            return -1;
         }else if (userNumber > secretNumber){
             maxValue = userNumber;
-            return false;
+            return 1;
         }
-        return true;
+        return 0;
     }
 
     public void setSecretNumber(int secretNumber) {
@@ -68,4 +78,15 @@ public class Model {
     public int getSecretNumber(){
     	return secretNumber;
     }
+
+	public List<String> getHistory() {
+		return history;
+	}
+
+	public void addToHistory(int number) {
+		history.add(number + View.IN_RANGE + minValue + View.SEMICOLON
+				+ maxValue + View.CLOSING_BRACKET);
+	}
+    
+    
 }
