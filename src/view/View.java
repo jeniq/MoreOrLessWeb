@@ -18,4 +18,7 @@ public class View {
 	public static final String NULL_SECRET_NUMBER = "Oops, something went wrong, try new game.";
 	public static final String ATTEMPS_TITLE = "<br>Attemps";
 	public static final String NEW_LINE = "<br>";
+	public static final String IN_RANGE = " in range (";
+	public static final String SEMICOLON = ";";
+	public static final String CLOSING_BRACKET = ")";
 }

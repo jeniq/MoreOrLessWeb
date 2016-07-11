@@ -6,11 +6,6 @@ public class Model {
     private int maxValue;
     private int RAND_MAX;
 
-    // Constructor
-    public Model(){
-    	// TODO: attempts' history
-    }
-
     /**
      * Generate random number in the range 0 - 100
      * @return random integer number

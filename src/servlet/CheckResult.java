@@ -45,7 +45,8 @@ public class CheckResult extends HttpServlet {
 			if (attemps == null){ 
 				attemps = View.ATTEMPS_TITLE;
 			}
-			attemps += View.NEW_LINE + userNumber + " in range (" + minValue + ";" + maxValue + ")";
+			attemps += View.NEW_LINE + userNumber + View.IN_RANGE + minValue + View.NULL_SECRET_NUMBER
+					+ maxValue + View.CLOSING_BRACKET;
 			session.setAttribute(Constant.ATTEMPTS, attemps);
 			
 			// check attemp
