@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Model;
 import view.View;
 
 /**
@@ -18,6 +18,7 @@ import view.View;
 @WebServlet("/CheckResult")
 public class CheckResult extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Model game;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,43 +33,29 @@ public class CheckResult extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
-		PrintWriter out = response.getWriter();
-		String attemps = (String)session.getAttribute(Constant.ATTEMPTS);
-		int minValue = (int)session.getAttribute(Constant.MIN_VALUE);
-		int maxValue = (int)session.getAttribute(Constant.MAX_VALUE);
+		String result;
+		game = (Model)session.getAttribute(Constant.GAME);
 		
-		if (session.getAttribute(Constant.SECRET_NUMBER) != null){
-			int secretNumber = (int)session.getAttribute(Constant.SECRET_NUMBER);
+		if (game != null){
 			int userNumber = new Integer(request.getParameter(Constant.USER_NUMBER));
 			
 			// history
-			if (attemps == null){ 
-				attemps = View.ATTEMPS_TITLE;
-			}
-			attemps += View.NEW_LINE + userNumber + View.IN_RANGE + minValue + View.SEMICOLON
-					+ maxValue + View.CLOSING_BRACKET;
-			session.setAttribute(Constant.ATTEMPTS, attemps);
+			game.addToHistory(userNumber);
 			
 			// check attemp
-			if (userNumber != secretNumber){
-				out.print(View.WRONG_ATTEMPT);
-				if (userNumber > secretNumber){
-					out.print(View.HIGHER_NUMBER);
-					maxValue = userNumber;
-					session.setAttribute(Constant.MAX_VALUE, new Integer(maxValue));
-				}else{
-					out.print(View.LOWER_NUMBER);
-					minValue = userNumber;
-					session.setAttribute(Constant.MIN_VALUE, new Integer(minValue));
-				}
+			if (game.isEquals(userNumber) < 0){
+				result = View.HIGHER_NUMBER;
+				game.setMaxValue(userNumber);
+			}else if (game.isEquals(userNumber) > 1){
+				result = View.LOWER_NUMBER;
 			}else{
-				out.print(View.CONGRATULATION);
+				result = View.CONGRATULATION;
 			}
-			out.print(attemps);
+			request.setAttribute(Constant.RESULT, result);
 		}else{
-			out.print(View.NULL_SECRET_NUMBER);
+			getServletContext().getRequestDispatcher(Constant.SESSION_TIMED_OUT_LINK).forward(request, response);
 		}
-		out.close();
+		getServletContext().getRequestDispatcher(Constant.REDIRECT_LINK).forward(request, response);
 	}
 
 }
