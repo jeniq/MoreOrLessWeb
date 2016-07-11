@@ -44,10 +44,9 @@ public class CheckResult extends HttpServlet {
 			
 			// check attemp
 			if (game.isEquals(userNumber) < 0){
-				result = View.HIGHER_NUMBER;
-				game.setMaxValue(userNumber);
-			}else if (game.isEquals(userNumber) > 1){
 				result = View.LOWER_NUMBER;
+			}else if (game.isEquals(userNumber) > 1){
+				result = View.HIGHER_NUMBER;
 			}else{
 				result = View.CONGRATULATION;
 			}
