@@ -13,4 +13,6 @@ public interface Constant {
 	// Check result servlet
 	String USER_NUMBER = "userNumber";
 	String ATTEMPTS = "attemps";
+	String RESULT = "result";
+	String SESSION_TIMED_OUT_LINK = "/timedOutSession.html";
 }
