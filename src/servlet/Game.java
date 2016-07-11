@@ -52,10 +52,10 @@ public class Game extends HttpServlet {
 		}
 		minValue = model.getMinValue();
 		maxValue = model.getMaxValue();
+		gameSession.setAttribute(Constant.ATTEMPTS, "");
 		gameSession.setAttribute(Constant.SECRET_NUMBER, new Integer(secretNumber));
 		gameSession.setAttribute(Constant.MIN_VALUE, new Integer(minValue));
 		gameSession.setAttribute(Constant.MAX_VALUE, new Integer(maxValue));
-		
-		response.sendRedirect(Constant.REDIRECT_LINK);
+		getServletContext().getRequestDispatcher(Constant.REDIRECT_LINK).forward(request, response);
 	}
 }
